@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -113,24 +114,25 @@ export default function LoginPage() {
           </div>
         )}
 
-        <button
-          type="submit"
-          disabled={loading}
-          style={{
-            width: "100%",
-            padding: "12px 14px",
-            borderRadius: 10,
-            border: "1px solid #111827",
-            fontSize: 16,
-            fontWeight: 700,
-            background: "#111827",
-            color: "white",
-            cursor: "pointer",
-          }}
-        >
-          {loading ? "Signing in..." : "Sign in"}
-        </button>
-
+        <Link href={"/form"}>
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              width: "100%",
+              padding: "12px 14px",
+              borderRadius: 10,
+              border: "1px solid #111827",
+              fontSize: 16,
+              fontWeight: 700,
+              background: "#111827",
+              color: "white",
+              cursor: "pointer",
+            }}
+          >
+            {loading ? "Signing in..." : "Sign in"}
+          </button>
+        </Link>
         <p style={{ color: "#6b7280", fontSize: 14, marginTop: 14 }}>
           Having trouble? Double-check your e-mail and password. Contact the
           organizer if needed.
