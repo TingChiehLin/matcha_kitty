@@ -147,7 +147,7 @@ export default function Home() {
           focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#145a32]
           dark:bg-[#145a32] dark:hover:bg-[#0f3d1c] dark:border-[#0f3d1c]"
 >
-         Back to Homepage 
+         Back to Homepage
         </a>
       </div>
     </main>
