@@ -1,14 +1,14 @@
-interface DetailAccordionProps {
+interface MatchCardProps {
   title: string;
   description: string | React.ReactNode;
   defaultOpen?: boolean;
 }
 
-const DetailAccordion = ({
+const MatchCard = ({
   title,
   description,
   defaultOpen = false,
-}: DetailAccordionProps) => {
+}: MatchCardProps) => {
   return (
     <details
       className="group rounded-lg border border-gray-200 p-4"
@@ -22,4 +22,4 @@ const DetailAccordion = ({
   );
 };
 
-export default DetailAccordion;
+export default MatchCard;

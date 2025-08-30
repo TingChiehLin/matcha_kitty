@@ -31,8 +31,7 @@ export default function Home() {
           </h1>
 
           <p className="mt-8 text-2xl text-zinc-600">
-            Bring everyone together, Find ways to help and grow with your
-            community.
+            Connecting generations in our cities of the future
           </p>
           <Link href={"/about"}>
             <button
@@ -56,12 +55,12 @@ export default function Home() {
           <Card
             title="Be a connector"
             description="Join a community of caring individuals making a difference in elders’ lives."
-            href={"/form"}
+            href={"/login"}
             img={"/imgs/volunteer.jpg"}
           />
           <Card
-            title="Service opportunities"
-            description="Find ways to help and grow with your community."
+            title="Search for Connectors"
+            description="Find the suitable Connectors based on their skillsets and availability."
             href={"/service"}
             img={"/imgs/service.jpg"}
           />
