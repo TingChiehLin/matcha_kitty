@@ -1,0 +1,15 @@
+[
+    { "sid": "u1001", "name": "Alice Wang",     "email": "alice@uni.edu.au",   "password": "A12345" },
+    { "sid": "u1002", "name": "Bob Li",         "email": "bob@uni.edu.au",     "password": "B23456" },
+    { "sid": "u1003", "name": "Taylor Swift",   "email": "taylor@uni.edu.au",  "password": "T34567" },
+    { "sid": "u1004", "name": "Chris Johnson",  "email": "chris@uni.edu.au",   "password": "C45678" },
+    { "sid": "u1005", "name": "Diana Chen",     "email": "diana@uni.edu.au",   "password": "D56789" },
+    { "sid": "u1006", "name": "Ethan Brown",    "email": "ethan@uni.edu.au",   "password": "E67890" },
+    { "sid": "u1007", "name": "Fiona Zhang",    "email": "fiona@uni.edu.au",   "password": "F78901" },
+    { "sid": "u1008", "name": "George Wilson",  "email": "george@uni.edu.au",  "password": "G89012" },
+    { "sid": "u1009", "name": "Hannah Lee",     "email": "hannah@uni.edu.au",  "password": "H90123" },
+    { "sid": "u1010", "name": "Ivan Petrov",    "email": "ivan@uni.edu.au",    "password": "I01234" },
+    { "sid": "u1011", "name": "Julia Roberts",  "email": "julia@uni.edu.au",   "password": "J12345" },
+    { "sid": "u1012", "name": "Kevin Smith",    "email": "kevin@uni.edu.au",   "password": "K23456" }
+  ]
+  
