@@ -64,7 +64,7 @@ function Form() {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="p-2 rounded border w-full"
+                className="mt-2 p-2 rounded border w-full"
                 required
               />
             </label>
@@ -75,7 +75,7 @@ function Form() {
                 type="text"
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
-                className="p-2 rounded border w-full"
+                className="mt-2 p-2 rounded border w-full"
                 required
               />
             </label>
@@ -86,7 +86,7 @@ function Form() {
                 type="text"
                 value={organization}
                 onChange={(e) => setOrganization(e.target.value)}
-                className="p-2 rounded border w-full"
+                className="mt-2 p-2 rounded border w-full"
                 required
               />
             </label>
@@ -97,49 +97,28 @@ function Form() {
                 type="text"
                 value={activity}
                 onChange={(e) => setActivity(e.target.value)}
-                className="p-2 rounded border w-full"
+                className="mt-2 p-2 rounded border w-full"
                 required
               />
             </label>
-
-            <input
-              type="text"
-              placeholder="Description of Activity"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="p-2 rounded border w-full"
-              required
-            />
-
+            <label>
+              Description of Activity:
+              <input
+                type="text"
+                placeholder="Description of Activity"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="mt-2 p-2 rounded border w-full"
+                required
+              />
+            </label>
             <button
               type="submit"
-              className="bg-purple-600 hover:bg-purple-700 cursor-pointer text-white rounded p-2 font-bold"
+              className="mt-2 bg-purple-600 hover:bg-purple-700 cursor-pointer text-white rounded p-2 font-bold"
             >
               Submit
             </button>
           </form>
-
-          <ul className="mt-5">
-            {people.map((person, index) => (
-              <li key={index} className="bg-black shadow-md rounded-lg p-4 m-2">
-                <div>
-                  <strong>Name:</strong> {person.name}
-                </div>
-                <div>
-                  <strong>DOB:</strong> {person.dob}
-                </div>
-                <div>
-                  <strong>Organization:</strong> {person.organization}
-                </div>
-                <div>
-                  <strong>Activity:</strong> {person.activity}
-                </div>
-                <div>
-                  <strong>Description:</strong> {person.description}
-                </div>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </>
