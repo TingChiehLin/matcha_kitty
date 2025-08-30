@@ -275,7 +275,7 @@ const Chip: React.FC<{
     aria-pressed={!!selected}
     aria-label={ariaLabel || label}
     className={`flex items-center justify-center gap-2 rounded-2xl border text-lg px-4 py-4 min-h-[64px] focus:outline-none focus:ring-4 transition 
-      ${selected ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-neutral-900 border-neutral-300 hover:bg-neutral-50'}
+      ${selected ? 'bg-purple-600 text-white border-emerald-600' : 'bg-white text-neutral-900 border-neutral-300 hover:bg-neutral-50'}
     `}
   >
     {icon && <span className="text-2xl" aria-hidden>{icon}</span>}
@@ -295,7 +295,7 @@ const ToggleRow: React.FC<{
       role="switch"
       aria-checked={checked}
       onClick={() => onChange(!checked)}
-      className={`w-16 h-9 rounded-full p-1 transition ${checked ? 'bg-emerald-600' : 'bg-neutral-300'}`}
+      className={`w-16 h-9 rounded-full p-1 transition ${checked ? 'bg-purple-600' : 'bg-neutral-300'}`}
     >
       <div className={`h-7 w-7 rounded-full bg-white transition ${checked ? 'translate-x-7' : ''}`}></div>
     </button>
@@ -393,7 +393,7 @@ export default function SearchForConnectorPage() {
 
             <div className="flex justify-between">
               <div />
-              <button className="rounded-2xl bg-emerald-600 text-white px-6 py-3 text-lg" onClick={() => dispatch({ type: 'SET_STEP', step: 2 })}>Next → Time</button>
+              <button className="rounded-2xl bg-purple-600 text-white px-6 py-3 text-lg" onClick={() => dispatch({ type: 'SET_STEP', step: 2 })}>Next → Time</button>
             </div>
           </>
         )}
@@ -433,7 +433,7 @@ export default function SearchForConnectorPage() {
 
             <div className="flex justify-between">
               <button className="rounded-2xl border px-6 py-3 text-lg" onClick={() => dispatch({ type: 'SET_STEP', step: 1 })}>← Back</button>
-              <button className="rounded-2xl bg-emerald-600 text-white px-6 py-3 text-lg" onClick={() => dispatch({ type: 'SET_STEP', step: 3 })}>Next → Comfort</button>
+              <button className="rounded-2xl bg-purple-600 text-white px-6 py-3 text-lg" onClick={() => dispatch({ type: 'SET_STEP', step: 3 })}>Next → Comfort</button>
             </div>
           </>
         )}
@@ -482,7 +482,7 @@ export default function SearchForConnectorPage() {
 
             <div className="flex justify-between">
               <button className="rounded-2xl border px-6 py-3 text-lg" onClick={() => dispatch({ type: 'SET_STEP', step: 2 })}>← Back</button>
-              <button className="rounded-2xl bg-emerald-600 text-white px-6 py-3 text-lg" onClick={() => dispatch({ type: 'SET_STEP', step: 4 })}>See matches →</button>
+              <button className="rounded-2xl bg-purple-600 text-white px-6 py-3 text-lg" onClick={() => dispatch({ type: 'SET_STEP', step: 4 })}>See matches →</button>
             </div>
           </>
         )}
@@ -500,7 +500,7 @@ export default function SearchForConnectorPage() {
                 {results.map(({ candidate, score, why }) => (
                   <div key={candidate.id} className={`rounded-2xl border bg-white p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 ${state.selectedIds.includes(candidate.id)?'ring-4 ring-emerald-300':''}`}>
                     <div className="flex items-center gap-4">
-                      <div className="h-14 w-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl font-extrabold">{candidate.initials}</div>
+                      <div className="h-14 w-14 rounded-2xl bg-purple-600 text-white flex items-center justify-center text-2xl font-extrabold">{candidate.initials}</div>
                       <div>
                         <div className="font-bold text-xl flex items-center gap-2">{candidate.name} <span className="text-sm font-normal text-neutral-600">★{candidate.rating.toFixed(1)}</span></div>
                         <div className="text-sm text-neutral-600 flex flex-wrap gap-2">
@@ -515,7 +515,7 @@ export default function SearchForConnectorPage() {
                     <div className="flex items-center gap-2">
                       <button className="rounded-xl border px-4 py-2" onClick={()=>alert('View profile (demo)')}>View profile</button>
                       <button
-                        className={`rounded-xl px-4 py-2 font-semibold ${state.selectedIds.includes(candidate.id) ? 'bg-neutral-800 text-white' : 'bg-emerald-600 text-white'}`}
+                        className={`rounded-xl px-4 py-2 font-semibold ${state.selectedIds.includes(candidate.id) ? 'bg-neutral-800 text-white' : 'bg-purple-600 text-white'}`}
                         onClick={()=>dispatch({ type:'TOGGLE_SELECT', id: candidate.id })}
                       >{state.selectedIds.includes(candidate.id) ? 'Selected' : 'APPLY'}</button>
                     </div>
@@ -534,7 +534,7 @@ export default function SearchForConnectorPage() {
                             const c = ALL_CANDIDATES.find(x=>x.id===id)!;
                             return (
                               <div key={id} className="flex items-center gap-3 border rounded-xl px-3 py-2">
-                                <div className="h-10 w-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg font-extrabold">{c.initials}</div>
+                                <div className="h-10 w-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-lg font-extrabold">{c.initials}</div>
                                 <div>
                                   <div className="font-semibold">{c.name}</div>
                                   <div className="text-xs text-neutral-600">★{c.rating.toFixed(1)} · {c.languages.includes('zh')?'Chinese':''} {c.languages.includes('en')?'English':''}</div>
@@ -546,7 +546,7 @@ export default function SearchForConnectorPage() {
                         <div className="flex items-center gap-2">
                           <div className="text-sm text-neutral-700">{p.why}</div>
                           <button
-                            className="rounded-xl bg-emerald-600 text-white px-4 py-2 font-semibold"
+                            className="rounded-xl bg-purple-600 text-white px-4 py-2 font-semibold"
                             onClick={()=>{
                               dispatch({ type: 'RESET_SELECTION' });
                               p.ids.forEach((id)=>dispatch({ type: 'TOGGLE_SELECT', id }));
