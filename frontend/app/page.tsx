@@ -1,7 +1,6 @@
 import Card from "@/components/Card/Card";
-import Volunteer from "./imgs/volunteer.jpg";
+import Link from "next/link";
 
-// <div className="grid items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
 export default function Home() {
   return (
     <div className="grid items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
@@ -14,18 +13,35 @@ export default function Home() {
             Bring everyone together, Find ways to help and grow with your
             community.
           </p>
+          <Link href={"/about"}>
+            <button
+              type="button"
+              className="rounded-md bg-purple-600 
+                       px-3.5 py-2.5 text-sm font-semibold 
+                     shadow-xs inset-ring
+                       inset-ring-gray-300 
+                       hover:bg-purple-700
+                       text-white
+                       cursor-pointer
+                       mt-8
+                       transition-colors duration-300
+                   "
+            >
+              Read More
+            </button>
+          </Link>
         </div>
         <div className="flex gap-x-24 mx-auto">
           <Card
             title="Be a connector"
             description="Join a community of caring individuals making a difference in elders’ lives."
-            href=""
+            href={"/form"}
             img={"/imgs/volunteer.jpg"}
           />
           <Card
             title="Service opportunities"
             description="Find ways to help and grow with your community."
-            href=""
+            href={"/service"}
             img={"/imgs/service.jpg"}
           />
         </div>
