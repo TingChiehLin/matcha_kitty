@@ -15,16 +15,16 @@ type Language = "en" | "zh" | "any";
 
 interface SafetyPrefs {
   language: Language;
-  pair: boolean; // paired visit
+  pair: boolean;
   verifiedOnly: boolean;
   place: "ward" | "lounge" | "garden";
 }
 
 interface TimePrefs {
   quick: "now" | "today-pm" | "tomorrow-am" | null;
-  startAfter: string; // 'HH:MM'
-  endBefore: string; // 'HH:MM'
-  duration: number; // minutes
+  startAfter: string;
+  endBefore: string;
+  duration: number;
 }
 
 interface State {
@@ -34,8 +34,7 @@ interface State {
   safety: SafetyPrefs;
   hospital: string;
   ward: string;
-  // selection
-  selectedIds: string[]; // 1 or 2
+  selectedIds: string[];
 }
 
 type Action =
@@ -94,7 +93,6 @@ function reducer(state: State, action: Action): State {
       else {
         if (state.safety.pair) {
           if (selected.size >= 2) {
-            // replace the first one selected (FIFO)
             const first = state.selectedIds[0];
             selected.delete(first);
           }
@@ -111,7 +109,6 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-// —— Accessibility helpers ——
 function useSpeech() {
   const speak = (text: string) => {
     if (typeof window === "undefined") return;
@@ -120,11 +117,9 @@ function useSpeech() {
       if (!synth) return;
       synth.cancel();
       const u = new SpeechSynthesisUtterance(text);
-      u.lang = "en-US"; // switch to 'zh-CN' if needed
+      u.lang = "en-US";
       synth.speak(u);
-    } catch {
-      // no-op in browsers without TTS
-    }
+    } catch {}
   };
   const stop = () => {
     if (typeof window === "undefined") return;
@@ -135,7 +130,6 @@ function useSpeech() {
   return { speak, stop };
 }
 
-// —— Mock data & matching ——
 interface Candidate {
   id: string;
   initials: string;
