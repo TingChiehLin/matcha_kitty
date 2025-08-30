@@ -256,8 +256,16 @@ export default function SearchForConnectorPage() {
 
   const { results, pairs } = useMemo(() => {
     if (!candidates.length) return { results: [], pairs: [] };
-    return computeMatches(state, candidates);
-  }, [state, candidates]);
+
+    let filteredCandidates = candidates;
+    if (state.step === 1) {
+      filteredCandidates = candidates.filter(c =>
+        c.skills?.some(skill => state.activities.includes(skill))
+      );
+    }
+
+    return computeMatches(state, filteredCandidates);
+  }, [state.step, state.activities, candidates]);
 
   function computeMatches(state: State, candidates: Candidate[]) {
     const {
