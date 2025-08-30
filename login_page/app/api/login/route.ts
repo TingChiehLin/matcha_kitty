@@ -1,8 +1,6 @@
-/*
 import { NextResponse } from "next/server";
-import { findStudentByEmailAndCode } from "@/lib/students";
+import { findStudentByEmailAndCode } from "@/lib/students"; 
 
-import { cookies } from "next/headers";
 
 export async function POST(req: Request) {
   try {
@@ -18,18 +16,25 @@ export async function POST(req: Request) {
     }
 
 
-    cookies().set("student_session", JSON.stringify({
-      id: student.id, name: student.name, email: student.email
-    }), {
-      httpOnly: true,
-      sameSite: "lax",
-      path: "/",
-      maxAge: 60 * 60 * 8 
+    const res = NextResponse.json({
+      ok: true,
+      student: { id: student.id, name: student.name }
     });
 
-    return NextResponse.json({ ok: true, student: { id: student.id, name: student.name } });
+    
+    res.cookies.set("student_session",
+      JSON.stringify({ id: student.id, name: student.name, email: student.email }),
+      {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        maxAge: 60 * 60 * 8,
+        
+      }
+    );
+
+    return res;
   } catch (e) {
     return NextResponse.json({ ok: false, error: "Server error" }, { status: 500 });
   }
 }
-*/
