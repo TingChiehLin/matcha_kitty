@@ -8,13 +8,16 @@
 ````
 ├── frontend # use next.js(react) + tallwind
 │ ├── app
+│   ├── about
+│   ├── form
+│   ├── login
+│   └── servier
 │ ├── components
-│   └── 
 │ └── public
 │   └── image
 ├── backend # use react + node.js + express
-│ ├── server.js
-│ └── components
+│ ├── server.js (link to mongoDB)
+│ └── ...
 └── README.md # Project documentation
 ````
 ### Environment Requirements
