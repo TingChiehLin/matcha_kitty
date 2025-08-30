@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState } from "react";
 
 function Form() {
@@ -112,12 +113,14 @@ function Form() {
                 required
               />
             </label>
-            <button
-              type="submit"
-              className="mt-2 bg-purple-600 hover:bg-purple-700 cursor-pointer text-white rounded p-2 font-bold"
-            >
-              Submit
-            </button>
+            <Link href={"/service"}>
+              <button
+                type="submit"
+                className="mt-2 bg-purple-600 hover:bg-purple-700 cursor-pointer text-white rounded p-2 font-bold"
+              >
+                Submit
+              </button>
+            </Link>
           </form>
         </div>
       </div>
