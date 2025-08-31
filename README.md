@@ -19,15 +19,14 @@ A platform that aims to connect the elderly in hospitals and caring organization
 │   ├── login
 │   └── servier
 │ ├── components
-│   └── 
+│   └── Card
 │ └── public
 │   └── image
 ├── backend # use react + node.js + express
-│ ├── server.js
-│ └── components
 │ ├── server.js (link to mongoDB)
 │ └── ...
-└── README.md # Project documentation
+├── README.md # Project documentation
+└── candidates(for testing).json # an example data that can be import to MongoDB
 ````
 ### Environment Requirements
 - Front-End:
@@ -56,13 +55,16 @@ npm install ...
 - **cors** Cross-origin resource sharing
 
 ## Running the Project
+### Start the Database
+Open the MongoDB Compass and connect localhost:27017.
+For testing, you can import the example data (candidates(for testing).json) in MongoDB.
+
 ### Start the Back-end
 
 ```bash
 cd backend
 node server.js
 ```
-
 By default it runs at http://localhost:5000
 
 ### Start the Front-end

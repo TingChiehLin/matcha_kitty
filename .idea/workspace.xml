@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f6f8b9c1-8789-416d-852d-3742f9aaa2ea" name="更改" comment="update DB data">
+    <list default="true" id="f6f8b9c1-8789-416d-852d-3742f9aaa2ea" name="更改" comment="update Readme">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/login/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/service/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/service/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
     </list>
@@ -81,11 +83,37 @@
       <option name="project" value="LOCAL" />
       <updated>1756595136027</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update DB data">
+      <option name="closed" value="true" />
+      <created>1756599338735</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1756599338735</updated>
+    </task>
+    <task id="LOCAL-00003" summary="update Readme">
+      <option name="closed" value="true" />
+      <created>1756600804287</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1756600804287</updated>
+    </task>
+    <task id="LOCAL-00004" summary="update Readme">
+      <option name="closed" value="true" />
+      <created>1756602258589</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1756602258589</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Merge pull request #21 from TingChiehLin/main&#10;&#10;update new layout" />
     <MESSAGE value="update DB data" />
-    <option name="LAST_COMMIT_MESSAGE" value="update DB data" />
+    <MESSAGE value="update Readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="update Readme" />
   </component>
 </project>
