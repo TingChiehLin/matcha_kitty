@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useMemo, useReducer, useState } from "react";
 import { ACTIVITIES } from "../lib/activities";
+import { testcandidates } from "../lib/candidates";
 
 type ActivityKey =
   | "chat"
@@ -10,9 +11,16 @@ type ActivityKey =
   | "videoCall"
   | "meal"
   | "music"
-  | "puzzle";
+  | "puzzle"
+  | "cooking"
+  | "chat"
+  | "cooking"
+  | "gardening"
+  | "transport"
+  | "music"
+  | "teaching";
 
-type Language = "en" | "zh" | "any";
+type Language = "en" | "zh" | "any" | "es";
 
 interface SafetyPrefs {
   language: Language;
@@ -132,8 +140,7 @@ function useSpeech() {
   return { speak, stop };
 }
 
-// —— Mock data & matching ——
-interface Candidate {
+export interface Candidate {
   id: string;
   initials: string;
   name: string;
@@ -346,7 +353,6 @@ export default function SearchForConnectorPage() {
   return (
     <main className={containerClass}>
       <div className="mx-auto max-w-4xl px-4 py-6">
-        {/* Stepper */}
         <div className="mb-6">
           <ol className="flex items-center justify-between gap-2">
             {[1, 2, 3].map((s) => (
@@ -557,12 +563,12 @@ export default function SearchForConnectorPage() {
                     key={candidate.id}
                     className={`rounded-2xl border bg-white p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 ${
                       state.selectedIds.includes(candidate.id)
-                        ? "ring-4 ring-emerald-300"
+                        ? "ring-4 ring-purple-300"
                         : ""
                     }`}
                   >
                     <div className="flex items-center gap-4">
-                      <div className="h-14 w-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl font-extrabold">
+                      <div className="h-14 w-14 rounded-2xl bg-purple-600 text-white flex items-center justify-center text-2xl font-extrabold">
                         {candidate.initials}
                       </div>
                       <div>
@@ -600,7 +606,7 @@ export default function SearchForConnectorPage() {
                         className={`rounded-xl px-4 py-2 font-semibold ${
                           state.selectedIds.includes(candidate.id)
                             ? "bg-neutral-800 text-white"
-                            : "bg-emerald-600 text-white"
+                            : "bg-purple-600 text-white"
                         }`}
                         onClick={() =>
                           dispatch({ type: "TOGGLE_SELECT", id: candidate.id })
