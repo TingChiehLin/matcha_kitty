@@ -557,7 +557,7 @@ export default function SearchForConnectorPage() {
                 </div>
               )}
 
-              <div className="space-y-3">
+              <div className="space-y-3 ">
                 {results.map(({ candidate, score, why }) => (
                   <div
                     key={candidate.id}
@@ -567,11 +567,11 @@ export default function SearchForConnectorPage() {
                         : ""
                     }`}
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="h-14 w-14 rounded-2xl bg-purple-600 text-white flex items-center justify-center text-2xl font-extrabold">
+                    <div className="flex items-center gap-x-6">
+                      <div className="h-20 w-20 rounded-2xl bg-purple-600 text-white flex items-center justify-center text-2xl font-extrabold">
                         {candidate.initials}
                       </div>
-                      <div>
+                      <div className="w-120 flex flex-col gap-y-2">
                         <div className="font-bold text-xl flex items-center gap-2">
                           {candidate.name}{" "}
                           <span className="text-sm font-normal text-neutral-600">
@@ -597,13 +597,13 @@ export default function SearchForConnectorPage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <button
-                        className="rounded-xl border px-4 py-2"
+                        className="rounded-xl border px-4 py-2 flex justify-center items-center"
                         onClick={() => alert("View profile (demo)")}
                       >
-                        View profile
+                        <span className="text-xs">View profile</span>
                       </button>
                       <button
-                        className={`rounded-xl px-4 py-2 font-semibold ${
+                        className={`flex justify-center items-center rounded-xl px-4 py-2 font-semibold ${
                           state.selectedIds.includes(candidate.id)
                             ? "bg-neutral-800 text-white"
                             : "bg-purple-600 text-white"
@@ -614,7 +614,7 @@ export default function SearchForConnectorPage() {
                       >
                         {state.selectedIds.includes(candidate.id)
                           ? "Selected"
-                          : "APPLY"}
+                          : <span className="text-xs">Apply</span>}
                       </button>
                     </div>
                   </div>
