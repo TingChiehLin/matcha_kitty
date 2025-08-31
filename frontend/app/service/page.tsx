@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useMemo, useReducer, useState } from "react";
 import { ACTIVITIES } from "../lib/activities";
-import { testcandidates } from "../lib/candidates";
 
 type ActivityKey =
   | "chat"

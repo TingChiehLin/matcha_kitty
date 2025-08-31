@@ -81,7 +81,7 @@ export default function LoginPage() {
         />
 
         <label style={{ display: "block", fontWeight: 600, marginBottom: 8 }}>
-          Passcode
+          Password
         </label>
         <input
           type="password"
