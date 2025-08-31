@@ -25,7 +25,8 @@ A platform that aims to connect the elderly in hospitals and caring organization
 ├── backend # use react + node.js + express
 │ ├── server.js (link to mongoDB)
 │ └── ...
-└── README.md # Project documentation
+├── README.md # Project documentation
+└── candidates(for testing).json # an example data that can be import to MongoDB
 ````
 ### Environment Requirements
 - Front-End:
