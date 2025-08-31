@@ -1,4 +1,10 @@
-# Matcha_Kitty (SYNCS Hack 2025)
+# Community Connector (SYNCS Hack 2025)
+
+A platform that aims to connect the elderly in hospitals and caring organizations with verified university students for services such as lessons, pet companionship, and cooking/meal prep—building practical help and meaningful connection to solve aging problems.
+
+——Group: Matcha_Kitty
+
+
 
 ## Getting Start
 
@@ -8,6 +14,10 @@
 ````
 ├── frontend # use next.js(react) + tallwind
 │ ├── app
+│   ├── about
+│   ├── form
+│   ├── login
+│   └── servier
 │ ├── components
 │   └── 
 │ └── public
@@ -15,6 +25,8 @@
 ├── backend # use react + node.js + express
 │ ├── server.js
 │ └── components
+│ ├── server.js (link to mongoDB)
+│ └── ...
 └── README.md # Project documentation
 ````
 ### Environment Requirements
@@ -30,19 +42,28 @@ cd frontend
 npm install ...
 ```
 ```bash
-cd frontend
+cd backend
 npm install ...
 ```
 #### Key dependencies include:
-- Front-End:
-- **react** **react-dom** **next** Web framework
-- Back-End: 
+##### Front-End:
+- **react** Web framework
+- **react-dom** Web framework(DOM)
+- **next** 
+##### Back-End: 
 - **express** Web framework
 - **mongoose** MongoDB ODM
 - **cors** Cross-origin resource sharing
 
 ## Running the Project
 ### Start the Back-end
+
+```bash
+cd backend
+node server.js
+```
+
+By default it runs at http://localhost:5000
 
 ### Start the Front-end
 ```bash
