@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useMemo, useReducer, useState } from "react";
+import { ACTIVITIES } from "../lib/activities";
 
 type ActivityKey =
   | "chat"
@@ -28,14 +29,13 @@ interface TimePrefs {
 }
 
 interface State {
-  step: 1 | 2 | 3 | 4;
+  step: 1 | 2 | 3;
   activities: ActivityKey[];
   time: TimePrefs;
   safety: SafetyPrefs;
   hospital: string;
   ward: string;
-  // selection
-  selectedIds: string[]; // 1 or 2
+  selectedIds: string[];
 }
 
 type Action =
@@ -111,7 +111,6 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-// —— Accessibility helpers ——
 function useSpeech() {
   const speak = (text: string) => {
     if (typeof window === "undefined") return;
@@ -120,11 +119,9 @@ function useSpeech() {
       if (!synth) return;
       synth.cancel();
       const u = new SpeechSynthesisUtterance(text);
-      u.lang = "en-US"; // switch to 'zh-CN' if needed
+      u.lang = "en-US";
       synth.speak(u);
-    } catch {
-      // no-op in browsers without TTS
-    }
+    } catch {}
   };
   const stop = () => {
     if (typeof window === "undefined") return;
@@ -171,7 +168,6 @@ function overlapMinutes(
 }
 
 function getWardVisitingWindow(ward: string): { start: string; end: string } {
-  // Demo rules: E3 09:00–17:00, D2 10:00–18:00, default 09:00–17:00
   switch (ward) {
     case "E3":
       return { start: "09:00", end: "17:00" };
@@ -182,7 +178,6 @@ function getWardVisitingWindow(ward: string): { start: string; end: string } {
   }
 }
 
-// —— UI atoms ——
 const Section: React.FC<{
   title: string;
   subtitle?: string;
@@ -206,10 +201,10 @@ const Chip: React.FC<{
     onClick={onClick}
     aria-pressed={!!selected}
     aria-label={ariaLabel || label}
-    className={`flex items-center justify-center gap-2 rounded-2xl border text-lg px-4 py-4 min-h-[64px] focus:outline-none focus:ring-4 transition
+    className={`flex items-center justify-center gap-2 rounded-2xl border-2 text-lg px-4 py-4 min-h-[64px] focus:outline-none focus:ring-4 transition
       ${
         selected
-          ? "bg-emerald-600 text-white border-emerald-600"
+          ? "bg-purple-600 text-white"
           : "bg-white text-neutral-900 border-neutral-300 hover:bg-neutral-50"
       }
     `}
@@ -223,45 +218,12 @@ const Chip: React.FC<{
   </button>
 );
 
-const ToggleRow: React.FC<{
-  label: string;
-  desc?: string;
-  checked: boolean;
-  onChange: (v: boolean) => void;
-}> = ({ label, desc, checked, onChange }) => (
-  <div className="flex items-center justify-between rounded-xl border bg-white p-4">
-    <div>
-      <div className="font-semibold">{label}</div>
-      {desc && <div className="text-sm text-neutral-600">{desc}</div>}
-    </div>
-    <button
-      role="switch"
-      aria-checked={checked}
-      onClick={() => onChange(!checked)}
-      className={`w-16 h-9 rounded-full p-1 transition ${
-        checked ? "bg-emerald-600" : "bg-neutral-300"
-      }`}
-    >
-      <div
-        className={`h-7 w-7 rounded-full bg-white transition ${
-          checked ? "translate-x-7" : ""
-        }`}
-      ></div>
-    </button>
-  </div>
-);
-
-// —— Main Page Component ——
 export default function SearchForConnectorPage() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [highContrast, setHighContrast] = useState(false);
   const [textScale, setTextScale] = useState<"base" | "lg" | "xl">("lg");
-  const [simplify, setSimplify] = useState(true);
   const { speak, stop } = useSpeech();
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [bookingToken, setBookingToken] = useState<string | null>(null);
 
-  // Validation: visiting hours
   const visiting = useMemo(
     () => getWardVisitingWindow(state.ward),
     [state.ward]
@@ -292,8 +254,8 @@ export default function SearchForConnectorPage() {
 
     let filteredCandidates = candidates;
     if (state.step === 1) {
-      filteredCandidates = candidates.filter(c =>
-        c.skills?.some(skill => state.activities.includes(skill))
+      filteredCandidates = candidates.filter((c) =>
+        c.skills?.some((skill) => state.activities.includes(skill))
       );
     }
 
@@ -381,37 +343,20 @@ export default function SearchForConnectorPage() {
     highContrast ? "bg-white text-black" : "bg-neutral-50 text-neutral-900"
   } ${containerTextClass}`;
 
-  // Booking confirm
-  const canBook = state.selectedIds.length > 0 && !outsideVisiting;
-  function onBook() {
-    const token = `QR-${Date.now().toString(36)}-${state.selectedIds.join(
-      "-"
-    )}`;
-    setBookingToken(token);
-    setShowConfirm(true);
-  }
-
-  const stepTitle = [
-    "What would you like to do?",
-    "When works for you?",
-    "Comfort & Safety",
-    "Matches",
-  ][state.step - 1];
-
   return (
     <main className={containerClass}>
       <div className="mx-auto max-w-4xl px-4 py-6">
         {/* Stepper */}
         <div className="mb-6">
           <ol className="flex items-center justify-between gap-2">
-            {[1, 2, 3, 4].map((s) => (
+            {[1, 2, 3].map((s) => (
               <li key={s} className="flex-1">
                 <button
                   className={`w-full border rounded-xl px-3 py-2 text-sm ${
                     state.step === s
                       ? highContrast
                         ? "bg-yellow-300 border-black"
-                        : "bg-emerald-50 border-emerald-500"
+                        : "bg-purple-50 border-purple-500"
                       : "bg-white"
                   }`}
                   onClick={() =>
@@ -420,93 +365,44 @@ export default function SearchForConnectorPage() {
                 >
                   {s === 1 && "Activities"}
                   {s === 2 && "Time"}
-                  {s === 3 && "Comfort"}
-                  {s === 4 && "Matches"}
+                  {s === 3 && "Matches"}
                 </button>
               </li>
             ))}
           </ol>
         </div>
 
-        {/* Step content */}
         {state.step === 1 && (
           <>
             <Section
-              title="① What would you like to do?"
+              title="What would you like to do?"
               subtitle="Pick 1–3 (multi-select)"
             >
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                <Chip
-                  label="Chat"
-                  icon="💬"
-                  selected={state.activities.includes("chat")}
-                  onClick={() =>
-                    dispatch({ type: "TOGGLE_ACTIVITY", key: "chat" })
-                  }
-                />
-                <Chip
-                  label="Read"
-                  icon="📖"
-                  selected={state.activities.includes("read")}
-                  onClick={() =>
-                    dispatch({ type: "TOGGLE_ACTIVITY", key: "read" })
-                  }
-                />
-                <Chip
-                  label="Walk"
-                  icon="🚶"
-                  selected={state.activities.includes("walk")}
-                  onClick={() =>
-                    dispatch({ type: "TOGGLE_ACTIVITY", key: "walk" })
-                  }
-                />
-                <Chip
-                  label="Chess/Board games"
-                  icon="♟️"
-                  selected={state.activities.includes("chess")}
-                  onClick={() =>
-                    dispatch({ type: "TOGGLE_ACTIVITY", key: "chess" })
-                  }
-                />
-                <Chip
-                  label="Video call family"
-                  icon="📞"
-                  selected={state.activities.includes("videoCall")}
-                  onClick={() =>
-                    dispatch({ type: "TOGGLE_ACTIVITY", key: "videoCall" })
-                  }
-                />
-                <Chip
-                  label="Meal companion"
-                  icon="🍵"
-                  selected={state.activities.includes("meal")}
-                  onClick={() =>
-                    dispatch({ type: "TOGGLE_ACTIVITY", key: "meal" })
-                  }
-                />
-                <Chip
-                  label="Music"
-                  icon="🎵"
-                  selected={state.activities.includes("music")}
-                  onClick={() =>
-                    dispatch({ type: "TOGGLE_ACTIVITY", key: "music" })
-                  }
-                />
-                <Chip
-                  label="Puzzle/Crafts"
-                  icon="🧩"
-                  selected={state.activities.includes("puzzle")}
-                  onClick={() =>
-                    dispatch({ type: "TOGGLE_ACTIVITY", key: "puzzle" })
-                  }
-                />
+                {ACTIVITIES.map(({ key, label, icon }) => (
+                  <Chip
+                    key={key}
+                    label={label}
+                    icon={icon}
+                    selected={state.activities.includes(key as ActivityKey)}
+                    onClick={() =>
+                      dispatch({
+                        type: "TOGGLE_ACTIVITY",
+                        key: key as ActivityKey,
+                      })
+                    }
+                  />
+                ))}
               </div>
             </Section>
 
             <div className="flex justify-between">
               <div />
               <button
-                className="rounded-2xl bg-emerald-600 text-white px-6 py-3 text-lg"
+                className="rounded-2xl bg-purple-600 text-white px-6 py-3 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={
+                  state.activities.length < 1 || state.activities.length > 3
+                }
                 onClick={() => dispatch({ type: "SET_STEP", step: 2 })}
               >
                 Next → Time
@@ -518,7 +414,7 @@ export default function SearchForConnectorPage() {
         {state.step === 2 && (
           <>
             <Section
-              title="② When works for you?"
+              title="When works for you?"
               subtitle={`Ward ${state.ward} visiting hours ${visiting.start}–${visiting.end}`}
             >
               <div className="flex flex-wrap gap-2">
@@ -633,7 +529,7 @@ export default function SearchForConnectorPage() {
                 ← Back
               </button>
               <button
-                className="rounded-2xl bg-emerald-600 text-white px-6 py-3 text-lg"
+                className="rounded-2xl bg-purple-600 text-white px-6 py-3 text-lg"
                 onClick={() => dispatch({ type: "SET_STEP", step: 3 })}
               >
                 Next → Comfort
@@ -645,147 +541,7 @@ export default function SearchForConnectorPage() {
         {state.step === 3 && (
           <>
             <Section
-              title="③ Comfort & Safety"
-              subtitle="We prioritise your safety and comfort. Choose paired visits, verified-only, and more."
-            >
-              <div className="grid sm:grid-cols-2 gap-3">
-                <div className="rounded-xl border bg-white p-4">
-                  <div className="font-semibold mb-2">Language</div>
-                  <div className="flex gap-2 flex-wrap">
-                    <Chip
-                      label="Any"
-                      selected={state.safety.language === "any"}
-                      onClick={() =>
-                        dispatch({
-                          type: "SET_SAFETY",
-                          partial: { language: "any" },
-                        })
-                      }
-                    />
-                    <Chip
-                      label="Chinese"
-                      selected={state.safety.language === "zh"}
-                      onClick={() =>
-                        dispatch({
-                          type: "SET_SAFETY",
-                          partial: { language: "zh" },
-                        })
-                      }
-                    />
-                    <Chip
-                      label="English"
-                      selected={state.safety.language === "en"}
-                      onClick={() =>
-                        dispatch({
-                          type: "SET_SAFETY",
-                          partial: { language: "en" },
-                        })
-                      }
-                    />
-                  </div>
-                </div>
-
-                <div className="sm:col-span-2">
-                  <ToggleRow
-                    label="Paired visit (safer)"
-                    checked={state.safety.pair}
-                    onChange={(v) =>
-                      dispatch({ type: "SET_SAFETY", partial: { pair: v } })
-                    }
-                    desc="Recommended for longer walks or higher-risk wards"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <ToggleRow
-                    label="Show verified only (USYD + checks)"
-                    checked={state.safety.verifiedOnly}
-                    onChange={(v) =>
-                      dispatch({
-                        type: "SET_SAFETY",
-                        partial: { verifiedOnly: v },
-                      })
-                    }
-                  />
-                </div>
-
-                <div className="rounded-xl border bg-white p-4 sm:col-span-2">
-                  <div className="font-semibold mb-2">Place</div>
-                  <div className="flex gap-2 flex-wrap">
-                    <Chip
-                      label="Public lounge (recommended)"
-                      selected={state.safety.place === "lounge"}
-                      onClick={() =>
-                        dispatch({
-                          type: "SET_SAFETY",
-                          partial: { place: "lounge" },
-                        })
-                      }
-                    />
-                    <Chip
-                      label="Ward"
-                      selected={state.safety.place === "ward"}
-                      onClick={() =>
-                        dispatch({
-                          type: "SET_SAFETY",
-                          partial: { place: "ward" },
-                        })
-                      }
-                    />
-                    <Chip
-                      label="Garden"
-                      selected={state.safety.place === "garden"}
-                      onClick={() =>
-                        dispatch({
-                          type: "SET_SAFETY",
-                          partial: { place: "garden" },
-                        })
-                      }
-                    />
-                  </div>
-                </div>
-
-                <div
-                  className={`rounded-xl border p-4 sm:col-span-2 ${
-                    highContrast ? "bg-yellow-100" : "bg-emerald-50"
-                  }`}
-                >
-                  <div className="font-semibold">Safety reminders</div>
-                  <ul className="list-disc pl-5 text-sm">
-                    <li>
-                      All visits must check in at the front desk and use QR
-                      codes to enter/exit.
-                    </li>
-                    <li>
-                      This is a volunteer companionship service — no fees or
-                      gifts.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </Section>
-
-            <div className="flex justify-between">
-              <button
-                className="rounded-2xl border px-6 py-3 text-lg"
-                onClick={() => dispatch({ type: "SET_STEP", step: 2 })}
-              >
-                ← Back
-              </button>
-              <button
-                className="rounded-2xl bg-emerald-600 text-white px-6 py-3 text-lg"
-                onClick={() => dispatch({ type: "SET_STEP", step: 4 })}
-              >
-                See matches →
-              </button>
-            </div>
-          </>
-        )}
-
-        {state.step === 4 && (
-          <>
-            <Section
-              title="④ Matches"
+              title="Matches"
               subtitle="Recommended by match score, with a ‘Why matched’ explanation."
             >
               {results.length === 0 && (
@@ -878,7 +634,7 @@ export default function SearchForConnectorPage() {
                                 key={id}
                                 className="flex items-center gap-3 border rounded-xl px-3 py-2"
                               >
-                                <div className="h-10 w-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg font-extrabold">
+                                <div className="h-10 w-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-lg font-extrabold">
                                   {c.initials}
                                 </div>
                                 <div>
@@ -902,7 +658,7 @@ export default function SearchForConnectorPage() {
                             {p.why}
                           </div>
                           <button
-                            className="rounded-xl bg-emerald-600 text-white px-4 py-2 font-semibold"
+                            className="rounded-xl bg-pruple-600 text-white px-4 py-2 font-semibold"
                             onClick={() => {
                               dispatch({ type: "RESET_SELECTION" });
                               p.ids.forEach((id) =>
@@ -923,7 +679,7 @@ export default function SearchForConnectorPage() {
             <div className="flex justify-between">
               <button
                 className="rounded-2xl border px-6 py-3 text-lg"
-                onClick={() => dispatch({ type: "SET_STEP", step: 3 })}
+                onClick={() => dispatch({ type: "SET_STEP", step: 2 })}
               >
                 ← Back
               </button>
@@ -932,38 +688,6 @@ export default function SearchForConnectorPage() {
           </>
         )}
       </div>
-
-      {/* Booking confirm modal (simple) */}
-      {showConfirm && (
-        <div
-          className="fixed inset-0 z-40 bg-black/50 flex items-center justify-center p-4"
-          role="dialog"
-          aria-modal
-        >
-          <div className="max-w-lg w-full rounded-2xl bg-white p-6">
-            <div className="text-2xl font-extrabold mb-2">
-              Booking confirmed
-            </div>
-            <p className="text-neutral-700 mb-4">
-              Please show this QR token at the front desk for check-in and exit.
-            </p>
-            <div className="rounded-xl border p-4 text-center">
-              <div className="text-sm text-neutral-600 mb-2">QR Token</div>
-              <div className="font-mono text-lg break-all">{bookingToken}</div>
-            </div>
-            <div className="mt-4 flex justify-end gap-2">
-              <button
-                className="rounded-xl border px-4 py-2"
-                onClick={() => {
-                  setShowConfirm(false);
-                }}
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </main>
   );
 }

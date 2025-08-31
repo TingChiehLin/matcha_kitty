@@ -2,8 +2,6 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import Volunteer from "../../public/imgs/volunteer.jpg";
-
 interface CardProps {
   title: string;
   description: string;
@@ -24,7 +22,7 @@ const Card = ({ title, description, href, img }: CardProps) => {
           <Image
             className="w-72 h-72 rounded-full object-cover 
                      transition duration-300 group-hover:brightness-110 group-hover:contrast-105"
-            src={img || Volunteer}
+            src={img || "/imgs/volunteer.jpg"}
             alt="profile-image"
             width={288}
             height={288}

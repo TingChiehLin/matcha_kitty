@@ -1,4 +1,4 @@
-import Card from "@/components/Card/Card";
+import Card from "@/components/Card";
 import Link from "next/link";
 
 import { Playfair_Display } from "next/font/google";
