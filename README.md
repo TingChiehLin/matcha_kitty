@@ -12,7 +12,7 @@ A platform that aims to connect the elderly in hospitals and caring organization
 
 ---
 ````
-├── frontend # use next.js(react) + tallwind
+├── frontend # use next.js(react) + tallwind CSS
 │ ├── app
 │   ├── about
 │   ├── form
